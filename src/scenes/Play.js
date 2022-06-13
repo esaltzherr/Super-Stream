@@ -6,8 +6,9 @@ class Play extends Phaser.Scene {
     preload() {
         this.load.image('Player', './assets/waterDrop.png');
         this.load.image('IceAbility', './assets/iceCube.png');
-
-
+        this.load.image('IceShot', './assets/iceShot.png');
+        this.load.image('iceParticle', './assets/iceParticle.png');
+        this.load.image('icePillar', './assets/icePillar.png');
 
 
 
@@ -23,8 +24,11 @@ class Play extends Phaser.Scene {
         this.input.mouse.disableContextMenu();
         this.input.setPollAlways();
         this.map = this.physics.add.group();
-
-
+        this.ice = this.physics.add.group();
+        this.iceShot = this.physics.add.group();
+        this.ice.runChildUpdate = true;
+        this.iceShot.runChildUpdate = true;
+        
 
         this.player = new Player(this, 200, 100, 'Player');
 
@@ -44,8 +48,15 @@ class Play extends Phaser.Scene {
 
 
         this.physics.add.collider(this.player, this.map);
+        this.physics.add.collider(this.player, this.ice);
+        this.physics.add.collider(this.iceShot, this.map);
+        this.physics.add.collider(this.iceShot, this.ice);
+        
+        
     }
     update(){
         this.player.update();
     }
+    
+    
 }
