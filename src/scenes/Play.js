@@ -9,6 +9,7 @@ class Play extends Phaser.Scene {
         this.load.image('IceShot', './assets/iceShot.png');
         this.load.image('iceParticle', './assets/iceParticle.png');
         this.load.image('icePillar', './assets/icePillar.png');
+        this.load.image('AttackParticle', './assets/AttackParticle.png');
 
 
 
@@ -18,6 +19,7 @@ class Play extends Phaser.Scene {
         keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         keySHIFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT);
+        keyQ = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
     }
 
     create() {

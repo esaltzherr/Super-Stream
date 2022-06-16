@@ -10,17 +10,35 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.moveSpeed = 400;
         this.jumpSpeed = 1000;
         this.setGravityY(3000);
-        this.spawnOffset = 10;
 
         this.canShoot = true;
+        this.maxShootTimer = 200;
+        this.shootTimer = this.maxShootTimer;
+
+        this.canFire = true;
+        this.maxFireTimer = 20;
+        this.FireTimer = this.maxFireTimer;
+
     }
 
     update() {
         this.move();
         this.abilitys();
-        if(this.scene.iceShot.getTotalUsed() <= 0){
-            this.canShoot = true;
+        
+        if(this.canShoot == false){
+            this.shootTimer -= 1;
+            if(this.shootTimer <= 0){
+                this.canShoot = true;
+                this.shootTimer = this.maxShootTimer;
+            }
         }
+        if(this.canFire == false){
+            this.FireTimer -= 1;
+            if(this.FireTimer <=0){
+                this.canFire = true;
+                this.FireTimer = this.maxFireTimer;
+            }
+        }        
 
     }
     move() {
@@ -52,6 +70,12 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             this.scene.iceShot.add(shot);
             shot.init();
             this.canShoot = false;
+        }
+        else if(Phaser.Input.Keyboard.JustDown(keyQ) && this.canFire){
+            var attack = new Attack(this.scene, this.x, this.y, 'IceShot', this);
+            this.scene.iceShot.add(attack);
+            attack.init();
+            this.canFire = false;
         }
 
     }
